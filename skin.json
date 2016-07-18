@@ -63,6 +63,9 @@
 				"skins/monaco/style/css/ny.css": {
 					"media": "screen"
 				},
+				"skins/monaco/style/css/usermenu.css": {
+					"media": "screen"
+				},
 				"skins/monaco/style/css/print.css": {
 					"media": "print"
 				}

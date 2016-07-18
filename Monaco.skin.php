@@ -660,11 +660,6 @@ class MonacoTemplate extends BaseTemplate {
 	 *
 	 * @author Daniel Friesen
 	 */
-	function useUserMore() {
-		global $wgMonacoUseMoreButton;
-		return $wgMonacoUseMoreButton;
-	}
-
 	function execute() {
 		wfProfileIn( __METHOD__ );
 		global $wgContLang, $wgUser, $wgLogo, $wgStyleVersion, $wgRequest, $wgTitle, $wgSitename;
@@ -1195,7 +1190,7 @@ if ($custom_article_footer !== '') {
 	</table>
 			</div>
 			<?php // mgagemorgan: Start the mods ?>
-<?php include "monaco.php"; // mgagemorgan: In order to use $wgUseCommunity, that has to be there
+<?php global $wgUseCommunity; // mgagemorgan: In order to use $wgUseCommunity, that has to be there
 	if ($wgUseCommunity == TRUE) { // mgagemorgan: If $wgUseCommunity in monaco.php is set to true, we take it News can be found so display the widget! ?>
 			<!-- mgagemorgan: Start of widget -->
 			<div class="widget sidebox navigation_box" id="navigation_widget" role="navigation">
@@ -1215,13 +1210,7 @@ if ($custom_article_footer !== '') {
 <!-- mgagemorgan: Show login as plain text (blue, bold link) -->
       <br><br>Already a member? <a href="<?php echo htmlspecialchars($this->data['userlinks']['login']['href']) ?>"><b>Log in</b></a><br>                    
  <?php } ?>
-<!-- mgagemorgan: This is my redneck way of styling. If too much happens, it'll get moved outta here -->
-	<style>
-	#rc {
-	padding: 4px;	
-	margin: 4px;
-	}
-	</style>
+	
 	<!-- mgagemorgan: The "Latest Activity" block -->
 	 <div id="rc" class="color2">
 	<b>Latest Activity:</b>
@@ -1249,12 +1238,6 @@ if ($custom_article_footer !== '') {
 			</div>
                           <div class="shadow widget_contents" id="newsbox">
 				<!-- mgagemorgan: More of my redneck styling XD -->
-				<style>
-				#newsbox { 
-				padding: 4px;
-				margin: 3px;
-				}
-				</style>
 				<ul>
 					</li>
 						<?php echo wfMessage( 'newsbox-homepage' )->parseAsBlock() ?>
@@ -1446,41 +1429,16 @@ wfProfileOut( __METHOD__ . '-body');
 				}
 			}
 
-			if ($wgUser->isLoggedIn()) {
-				// haleyjd 20140420: This needs to use $key => $value syntax to get the proper style for the elements!
-				foreach( array( "username" => "userpage", "mytalk" => "mytalk", "watchlist" => "watchlist" ) as $key => $value ) {
-					echo "				" . Html::rawElement( 'span', array( 'id' => "header_$key" ),
-						Html::element( 'a', array( 'href' => $this->data['userlinks'][$value]['href'] ) . Xml::expandAttributes(Linker::tooltipAndAccesskeyAttribs("$value")), $this->data['userlinks'][$value]['text'] ) ) . "\n";
-				}
-
-			?>
-<?php
-				if ( $this->useUserMore() ) { ?>
+			if ($wgUser->isLoggedIn()) { ?>
 				<span class="more hovermenu">
 					<button id="headerButtonUser" class="header-button color1" tabIndex="-1"><?php echo $wgUser ?>'s user menu<img src="<?php $this->text('blankimg') ?>" /></button>
 					<span class="invisibleBridge"></span>
-<style>
-.columns {
-    -webkit-column-count: 2; /* Chrome, Safari, Opera */
-    -moz-column-count: 2; /* Firefox */
-    column-count: 2;
-    -webkit-column-gap: 40px; /* Chrome, Safari, Opera */
-    -moz-column-gap: 40px; /* Firefox */
-    column-gap: 40px;
-    -webkit-column-rule-style: solid; /* Chrome, Safari, Opera */
-    -moz-column-rule-style: solid; /* Firefox */
-    column-rule-style: solid;
-    -webkit-column-rule-width: 1px; /* Chrome, Safari, Opera */
-    -moz-column-rule-width: 1px; /* Firefox */
-    column-rule-width: 1px;
-}
-</style>
-					<div id="headerMenuUser" class="headerMenu color1 reset">
+
+				<div id="headerMenuUser" class="headerMenu color1 reset">
 <center>Welcome, <?php echo $wgUser ?>!</center>				
 				<div class="columns">
 				<ul>
-
-<li><a href="http://wiki.christoffen.com/index.php/Special:MyPage"><?php echo $wgUser ?>'s Page</a></li>
+<li><a href="<?php echo Title::newFromText('Special:MyPage')->getLocalURL() ?>"><?php echo $wgUser ?>'s Page</a></li>
 
 <?php
 				foreach ( $this->data['userlinks']['more'] as $key => $link ) {
@@ -1495,19 +1453,7 @@ wfProfileOut( __METHOD__ . '-body');
 				<p>so the community as a whole can thrive.</p> 
 				<p>Brought to you by people like you.</p>
 				<br></div>		
-			</span>
-<?php
-				} else {
-					foreach ( $this->data['userlinks']['more'] as $key => $link ) {
-							echo Html::rawElement( 'span', array( 'id' => "header_$key" ),
-								Html::element( 'a', array( 'href' => $link['href'] ), $link['text'] ) ) . "\n";
-					} ?>
-<?php
-				} ?>
-				<span>
-					<?php echo Html::element( 'a', array( 'href' => $this->data['userlinks']['logout']['href'] ) .  Xml::expandAttributes(Linker::tooltipAndAccesskeyAttribs("logout")),  $this->data['userlinks']['logout']['text'] ); ?>
-				</span>
-<?php
+			</span><?php
 			} else {
 ?>
 				<span id="userLogin">
