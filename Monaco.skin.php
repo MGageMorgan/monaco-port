@@ -1430,8 +1430,38 @@ wfProfileOut( __METHOD__ . '-body');
 					<button id="headerButtonUser" class="header-button color1" tabIndex="-1"><?php echo $wgUser ?>'s user menu<img src="<?php $this->text('blankimg') ?>" /></button>
 					<span class="invisibleBridge"></span>
 
-				<div id="headerMenuUser" class="headerMenu color1 reset">
-<center>Welcome, <?php echo $wgUser ?>!</center>				
+				<div id="headerMenuUser" class="headerMenu color1 reset"><center>
+			<b>M I S S I O N &nbsp; C O N T R O L</b></center>
+<?php 
+function getDay() {
+$crstfnTime = substr(wfTimestamp( TS_RFC2822 ), 0, 3); 
+switch($crstfnTime) {
+case "Mon":
+echo "Monday";
+break;
+case "Tue":
+echo "Tuesday";
+break;
+case "Wed":
+echo "Wednesday";
+break;
+case "Thu":
+echo "Thursday";
+break;
+case "Fri":
+echo "Friday";
+break;
+case "Sat":
+echo "Saturday";
+break;
+case "Sun":
+echo "Sunday";
+break;
+	}
+}
+?>
+
+<center><b>Happy <?php echo getDay() ?>, <?php echo $wgUser ?>!</b></center>				
 				<div class="columns">
 				<ul>
 <li><a href="<?php echo Title::newFromText('Special:MyPage')->getLocalURL() ?>"><?php echo $wgUser ?>'s Page</a></li>
