@@ -1427,7 +1427,7 @@ wfProfileOut( __METHOD__ . '-body');
 
 			if ($wgUser->isLoggedIn()) { ?>
 				<span class="more hovermenu">
-					<button id="headerButtonUser" class="header-button color1" tabIndex="-1"><?php echo $wgUser ?>'s user menu<img src="<?php $this->text('blankimg') ?>" /></button>
+					<button id="headerButtonUser" class="header-button color1" tabIndex="-1"><?php echo $wgUser ?>'s mission control<img src="<?php $this->text('blankimg') ?>" /></button>
 					<span class="invisibleBridge"></span>
 
 				<div id="headerMenuUser" class="headerMenu color1 reset"><center>
