@@ -593,10 +593,6 @@ foreach ( $tpl->data['content_navigation'] as $section => $nav ) {
 				'href' => $tpl->data['personal_urls']['preferences']['href']
 				);
 
-			$data['more']['logout'] = array(
-				'text' => $tpl->data['personal_urls']['logout']['text'],
-				'href' => $tpl->data['personal_urls']['logout']['href']
-			);
 		}
 
 		// This function ignores anything from PersonalUrls hook which it doesn't expect.  This
@@ -1447,7 +1443,9 @@ wfProfileOut( __METHOD__ . '-body');
 					}
 				 ?>
 						</ul>
-					</div><center><br>
+
+					</div><center>
+<a class="wikia-button" id="logout" href="<?php echo Title::newFromText('Special:UserLogout')->getLocalURL() ?>">Logout</a>
 				<p>Welcome! If you like what you see,</p> 
 				<p>please continue and contribute</p> 
 				<p>so the community as a whole can thrive.</p> 
